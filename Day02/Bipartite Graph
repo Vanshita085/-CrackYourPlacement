@@ -1,0 +1,27 @@
+bool helper(int start,vector<int>& color,vector<int> adj[]){
+        queue<int>q;
+	    q.push(start);
+	    while(!q.empty()){
+	        int front=q.front();
+	        q.pop();
+	        for(auto it:adj[front]){
+	            if(color[it]==-1){
+	                q.push(it);
+	                color[it]=!color[front];
+	            }else if(color[it]==color[front]){
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+    }
+	bool isBipartite(int V, vector<int>adj[]){
+	    
+	    vector<int>color(V,-1);
+	    for(int i=0;i<V;i++){
+	        if(color[i]==-1){
+	            if(helper(i,color,adj)==false) return false;
+	        }
+	    }
+	    return true;
+	}
